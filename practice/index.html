@@ -1,39 +1,107 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>project1</title>
-  <style>
-    /* Styles to center the images */
-    .center-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* Adjust to the desired height */
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
   
-    .centered-image {
-      max-width: 100%;
-      margin: 10px; /* Add spacing between images */
-    }
-  </style>
+  .clock {
+    width: 200px;
+    height: 200px;
+    border: 10px solid #333;
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  .hour, .minute, .second {
+    position: absolute;
+    width: 50%;
+    transform-origin: 15%;
+  }
+  
+  .hour {
+    height: 5px;
+    background-color: #333;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  
+  .minute {
+    height: 3px;
+    background-color: #555;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+  
+  .second {
+    height: 2px;
+    background-color: #f00;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(270deg);
+  }
+  
+  #button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+</style>
 </head>
 <body>
-  <div>
-  <ul>calm</ul>
-  <ul>blog</ul>
-  <ul>Blogplaylist</ul>
-  <ul>JOIn calm</ul>
-
+  <div class="clock">
+    <div class="hour" id="hour"></div>
+    <div class="minute" id="minute"></div>
+    <div class="second" id="second"></div>
   </div>
+  <button id="button">Show Time</button>
 
-  <div class="center-container">
-<img src="https://github.com/anuragtiwarime/fsjs2/blob/main/Week%2004/Project%201/images/img1.png?raw=true" alt="Image 1" width="300" height="200">
-<img src="https://github.com/anuragtiwarime/fsjs2/blob/main/Week%2004/Project%201/images/img2.png?raw=true" alt="Image 2" width="300" height="200">
-<img src="https://github.com/anuragtiwarime/fsjs2/blob/main/Week%2004/Project%201/images/img3.png?raw=true" alt="Image 3" width="300" height="200">
-</div>
-  <h2>not just ordinary headphone its disign </form></h2>
+  <script>
+    const hourHand = document.getElementById('hour');
+    const minuteHand = document.getElementById('minute');
+    const secondHand = document.getElementById('second');
+    
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      
+      const hourDeg = (hours % 12) * 30 + (minutes / 60) * 30;
+      const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+      const secondDeg = (seconds / 60) * 360;
+      
+      hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+      secondHand.style.transform = `rotate(${secondDeg}deg)`;
+    }
+    
+    updateClock(); // Initial call to set the clock immediately
+    
+    const button = document.getElementById('button');
+    button.addEventListener('click', () => {
+      updateClock();
+    });
+    
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
